@@ -16,5 +16,3 @@ jobs:
           firebaseServiceAccount:  $"{{ secrets.FIREBASE_TOKEN }}"
           channelId: live  # or use preview channels like "pr-${{ github.event.pull_request.number }}"
           projectId: small-leave-management
-        
-    
