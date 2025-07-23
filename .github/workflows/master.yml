@@ -1,18 +1,24 @@
 name: Firebase deploy on merge
+
 on:
   push:
     branches:
       - master
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
-      - run: npm i && npm run build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+
+      - name: Install dependencies and build
+        run: npm i && npm run build
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: $"{{ secrets.GITHUB_TOKEN }}"  # automatically provided by GitHub
-          firebaseServiceAccount:  $"{{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
-          channelId: live  # or use preview channels like "pr-${{ github.event.pull_request.number }}"
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          channelId: live
           projectId: small-leave-management
